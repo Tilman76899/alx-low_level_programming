@@ -1,35 +1,31 @@
 #include <stdio.h>
-
 /**
- * main - create 2 pairs of numbers that do not repeat
+ * main - create 2 pairs of number
  * Return: 0
  */
 int main(void)
 {
-	int j, i;
+	int i, j;
 
-	for (j = 0; j <= 99; j++)
+	for (i = 0; i <= 99; i++)
 	{
-		for (i = j; i <= 99; i++)
+		for (j = i; j <= 99; j++)
 		{
-			if (i != j)
+			if (j != i)
 			{
-
-				putchar(j / 10 + 48);
-				putchar(j % 10 + 48);
-				putchar(' ');
 				putchar(i / 10 + 48);
 				putchar(i % 10 + 48);
+				putchar(' ');
+				putchar(j / 10 + 48);
+				putchar(j % 10 + 48);
 
-				if (j * 100 + i != 9899)
+				if (i * 100 + j != 9899)
 				{
 					putchar(',');
 					putchar(' ');
 				}
 			}
-
 		}
-
 	}
 	putchar('\n');
 	return (0);

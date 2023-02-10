@@ -1,9 +1,8 @@
 #include "main.h"
 
 /**
- * puts2 - prints xters of a string
- * @str: the used string reference
- * Return: 0
+ * puts2 - prints every other character of a string.
+ *@str: the string to use.
  */
 
 void puts2(char *str)
