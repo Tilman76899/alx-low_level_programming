@@ -1,32 +1,37 @@
-#include "holberton.h"
+#include "main.h"
 /**
-  * read_textfile - reads a text file and prints it to the POSIX standard out
-  * @filename: name of the file to read
-  * @letters: number of characters to print
-  * Return: 0 on success
-  **/
+ * read_textfile - reads a text file and prints it to the standard output
+ * @filename: name of the file to be read
+ * @letters: number of letters to read and print
+ * Return: the number of letters printed, or 0 if it failed
+ */
 ssize_t read_textfile(const char *filename, size_t letters)
 {
-	int txt_file, total, read_status;
-	char buffer[BUFSIZE];
-
-	if (filename == NULL)
+	int fd;
+	int i, y;
+	char *buf;
+	if (!filename)
 		return (0);
-	txt_file = open(filename, O_RDONLY);
-	if (txt_file == -1)
+	fd = open(filename, O_RDONLY);
+	if (fd < 0)
 		return (0);
-	total = 0;
-	read_status = 1;
-	while (letters > BUFSIZE && read_status != 0)
+	buf = malloc(sizeof(char) * letters);
+	if (!buf)
+		return (0);
+	i = read(fd, buf, letters);
+	if (i < 0)
 	{
-		read_status = read(txt_file, buffer, BUFSIZE);
-		write(STDOUT_FILENO, buffer, read_status);
-		total += read_status;
-		letters -= BUFSIZE;
+		free(buf);
+		return (0);
 	}
-	read_status = read(txt_file, buffer, letters);
-	write(STDOUT_FILENO, buffer, read_status);
-	total += read_status;
-	close(txt_file);
-	return (total);
+	buf[i] = '\0';
+	close(fd);
+	y = write(STDOUT_FILENO, buf, i);
+	if (y < 0)
+	{
+		free(buf);
+		return (0);
+	}
+	free(buf);
+	return (y);
 }
